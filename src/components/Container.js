@@ -71,8 +71,8 @@ class Container extends Component {
       className: "column-list",
       render: () => (
         <div>
-          <DeleteOutlined className="icon-action" />
-          <EditOutlined className="icon-action" />
+          <DeleteOutlined className="icon-action icon-delete" />
+          <EditOutlined className="icon-action icon-edit" />
         </div>
       ),
     },
