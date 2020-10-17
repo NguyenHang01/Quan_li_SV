@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Table } from "antd";
 import { listSinhVien } from "../service/handleRequest";
-
+import "../assets/css/container.css";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 class Container extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ class Container extends Component {
           gioi_tinh: student.gioi_tinh ? "nam" : "nữ",
           lop: student.lop + "-K" + student.khoa_so,
           que_quan: student.que_quan,
-          ngay_sinh: student.ngay_sinh
+          ngay_sinh: student.ngay_sinh,
         };
       });
       this.setState({
@@ -31,49 +32,43 @@ class Container extends Component {
   columns = [
     {
       title: "MSV",
-      width: 100,
       dataIndex: "msv",
-      key: "msv",
+      className: "column-list",
     },
     {
       title: "Họ và tên",
-      width: 100,
       dataIndex: "ten",
-      key: "ten",
+      className: "column-list",
     },
     {
       title: "Giới tính",
-      width: 100,
       dataIndex: "gioi_tinh",
-      key: "gioi_tinh",
+      className: "column-list",
     },
     {
       title: "Lớp",
-      width: 100,
       dataIndex: "lop",
-      key: "lop",
+      className: "column-list",
     },
     {
       title: "Ngày sinh",
-      width: 100,
       dataIndex: "ngay_sinh",
-      key: "ngay_sinh",
+      className: "column-list",
     },
     {
       title: "Quê quán",
-      width: 100,
       dataIndex: "que_quan",
-      key: "que_quan",
+      className: "column-list",
     },
     {
       title: "Xóa",
       key: "xoa",
-      width: 100,
+      className: "column-list",
       render: () => (
-        <a>
-          delete
-          {/* <DeleteOutlined /> */}
-        </a>
+        <div>
+          <DeleteOutlined className="icon-action"/>
+          <EditOutlined className="icon-action"/>
+        </div>
       ),
     },
   ];
@@ -82,14 +77,15 @@ class Container extends Component {
     const { students } = this.state;
     return (
       <div>
+        <h3 className="title-list">Danh sách sinh viên</h3>
         <Table
-        bordered={true}
+          // rowClassName={(record, index) => (index || index==0) ? 'table-layout' : '' }
           columns={this.columns}
           dataSource={students}
-          scroll={{ x: 900 }}
+          scroll={{ x: 1000 }}
           pagination={false}
-          //   scroll={{ x: 1500, y: 300 }}
-        />
+          bordered 
+        />,
       </div>
     );
   }
