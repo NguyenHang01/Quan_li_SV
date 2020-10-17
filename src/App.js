@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import logo from "./assets/img/logo_gtvt.png";
+import "./assets/css/base.css"
 import "./assets/css/home.css";
 import Container from "./components/Container";
 

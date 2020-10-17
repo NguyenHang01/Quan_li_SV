@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { listSinhVien } from "../service/handleRequest";
+import "../assets/css/base.css";
 import "../assets/css/container.css";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusCircleTwoTone,
+} from "@ant-design/icons";
 class Container extends Component {
   constructor(props) {
     super(props);
@@ -66,8 +71,8 @@ class Container extends Component {
       className: "column-list",
       render: () => (
         <div>
-          <DeleteOutlined className="icon-action"/>
-          <EditOutlined className="icon-action"/>
+          <DeleteOutlined className="icon-action" />
+          <EditOutlined className="icon-action" />
         </div>
       ),
     },
@@ -77,15 +82,27 @@ class Container extends Component {
     const { students } = this.state;
     return (
       <div>
-        <h3 className="title-list">Danh sách sinh viên</h3>
+        <div>
+          <h3 className="title-list">Danh sách sinh viên</h3>
+          <Button
+            className="button-add"
+            icon={
+              <PlusCircleTwoTone
+                className="button-add-icon"
+                twoToneColor="rgb(37, 132, 195)"
+              />
+            }
+          >
+            Sinh viên
+          </Button>
+        </div>
         <Table
-          // rowClassName={(record, index) => (index || index==0) ? 'table-layout' : '' }
           columns={this.columns}
           dataSource={students}
           scroll={{ x: 1000 }}
           pagination={false}
-          bordered 
-        />,
+          bordered
+        />
       </div>
     );
   }

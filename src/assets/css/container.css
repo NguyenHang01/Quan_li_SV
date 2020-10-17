@@ -2,6 +2,7 @@
     padding: 12px 22px;
     text-align: start;
     border: 1px solid black;
+    color: var(--text-color);
 }
 
 .icon-action{
@@ -18,5 +19,24 @@
 
 table{
     border-collapse: collapse;
+}
 
+.button-add{
+    width: 122px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    background-color:  var(--primary-color);
+    box-shadow: 1px 2px  rgb(148, 143, 143);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: var(--while-color);
+    font-weight: 500;
+    outline: none;
+}
+
+.button-add-icon{
+    font-size: 20px;
+    margin: 6px;
 }
