@@ -82,8 +82,8 @@ class Container extends Component {
     const { students } = this.state;
     return (
       <div>
-        <div>
-          <h3 className="title-list">Danh sách sinh viên</h3>
+        <div className="header-list">
+          <h1 className="title-list">Danh sách sinh viên</h1>
           <Button
             className="button-add"
             icon={

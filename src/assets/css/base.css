@@ -1,8 +1,9 @@
 :root{
     --primary-color: rgb(37, 132, 195);
+    --primary-hover-color: rgb(48, 142, 204);
     --while-color: #fff;
     --black-color:  #000;
     --text-color: #333;
-    --border-color: #cac7c7;
+    --border-color: #b9b8b8;
     --footer-color: rgb(60, 60, 60)
 }

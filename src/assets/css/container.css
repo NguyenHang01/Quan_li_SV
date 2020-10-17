@@ -14,7 +14,6 @@
 .title-list{
     font-weight: 500;
     font-size: 24px;
-    margin-left: 24px;
 }
 
 table{
@@ -27,7 +26,7 @@ table{
     border-radius: 3px;
     border: 1px solid var(--border-color);
     background-color:  var(--primary-color);
-    box-shadow: 1px 2px  rgb(148, 143, 143);
+    box-shadow: 1px 1px  rgb(148, 143, 143);
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -39,4 +38,15 @@ table{
 .button-add-icon{
     font-size: 20px;
     margin: 6px;
+}
+
+.button-add:hover{
+    background-color: var(--primary-hover-color);
+    cursor: pointer;
+}
+
+.header-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
 }
