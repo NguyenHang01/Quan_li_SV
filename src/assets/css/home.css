@@ -10,13 +10,13 @@
 }
 
 .logo {
-  margin-top: 6px;
+  margin-top: 20px;
   margin-left: 50px;
   height: 66px;
 }
 
 .header{
-    min-height: 80px;
+    min-height: 100px;
     background-color: var(--primary-color);
 }
 

@@ -8,6 +8,7 @@ import {
   EditOutlined,
   PlusCircleTwoTone,
 } from "@ant-design/icons";
+import GeneralModal from "./GeneralModal";
 class Container extends Component {
   constructor(props) {
     super(props);
@@ -16,21 +17,31 @@ class Container extends Component {
     };
   }
 
-  componentDidMount() {
-    listSinhVien().then((res) => {
-      const students = res.data.map((student) => {
-        return {
-          msv: student.id,
-          ten: student.ho + " " + student.ten,
-          gioi_tinh: student.gioi_tinh ? "nam" : "nữ",
-          lop: student.lop + "-K" + student.khoa_so,
-          que_quan: student.que_quan,
-          ngay_sinh: student.ngay_sinh,
-        };
+  async getListSV() {
+    let students = [];
+    await listSinhVien()
+      .then((res) => {
+        students = res.data.map((student) => {
+          return {
+            msv: student.id,
+            ten: student.ho + " " + student.ten,
+            gioi_tinh: student.gioi_tinh ? "nam" : "nữ",
+            lop: student.lop + "-K" + student.khoa_so,
+            que_quan: student.que_quan,
+            ngay_sinh: student.ngay_sinh,
+          };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      this.setState({
-        students,
-      });
+    return students;
+  }
+
+  async componentDidMount() {
+    const students= await this.getListSV();
+    this.setState({
+      students
     });
   }
 
@@ -66,8 +77,8 @@ class Container extends Component {
       className: "column-list",
     },
     {
-      title: "Xóa",
-      key: "xoa",
+      title: "",
+      key: "action",
       className: "column-list",
       render: () => (
         <div>
@@ -99,10 +110,11 @@ class Container extends Component {
         <Table
           columns={this.columns}
           dataSource={students}
-          scroll={{ x: 1000 }}
+          // scroll={{ x: 1000 }}
           pagination={false}
           bordered
         />
+        <GeneralModal/>
       </div>
     );
   }

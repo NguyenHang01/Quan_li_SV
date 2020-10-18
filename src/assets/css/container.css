@@ -2,19 +2,11 @@
 .column-list{
     padding: 10px 18px;
     text-align: start;
-    border: 1px solid black;
-    color: var(--text-color);
 }
 
 table{
     border-collapse: collapse;
 }
-
-.title-list{
-    font-weight: 500;
-    font-size: 24px;
-}
-
 
 /* style for header table */
 .button-add{
@@ -24,7 +16,7 @@ table{
     border: 1px solid var(--border-color);
     background-color:  var(--primary-color);
     box-shadow: 1px 1px  rgb(148, 143, 143);
-    font-size: 14px;
+    font-size: 15px;
     display: flex;
     align-items: center;
     color: var(--while-color);
@@ -34,17 +26,23 @@ table{
 
 .button-add-icon{
     font-size: 20px;
-    margin: 6px;
 }
 
 .button-add:hover{
     background-color: var(--primary-hover-color);
     cursor: pointer;
+    color: var(--while-color);
+
+}
+
+.title-list{
+    font-weight: 500;
+    font-size: 24px;
 }
 
 .header-list{
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;   
     margin-bottom: 8px; 
 }
@@ -60,8 +58,17 @@ table{
     color: red;
 }
 
+.icon-delete:hover{
+    color: rgb(248, 48, 48);
+}
+
 .icon-edit{
     color: var(--primary-color);
     cursor: pointer;
     margin-left: 12px;
+}
+
+.icon-edit:hover{
+    color: var(--primary-hover-color);
+
 }

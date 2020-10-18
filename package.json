@@ -33,7 +33,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "less": "^3.12.2"
-  }
+  "devDependencies": {}
 }
