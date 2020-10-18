@@ -14,6 +14,7 @@ class Container extends Component {
     super(props);
     this.state = {
       students: [],
+      isAdd: false,
     };
   }
 
@@ -39,11 +40,25 @@ class Container extends Component {
   }
 
   async componentDidMount() {
-    const students= await this.getListSV();
+    const students = await this.getListSV();
     this.setState({
-      students
+      students,
     });
   }
+
+  handleButtonAdd = () => {
+    this.setState({
+      isAdd: true,
+    });
+  };
+
+  reloadData = async () => {
+    const students = await this.getListSV();
+    await this.setState({
+      students,
+      isAdd: false,
+    });
+  };
 
   columns = [
     {
@@ -90,12 +105,13 @@ class Container extends Component {
   ];
 
   render() {
-    const { students } = this.state;
+    const { students, isAdd } = this.state;
     return (
       <div>
         <div className="header-list">
           <h1 className="title-list">Danh sách sinh viên</h1>
           <Button
+            onClick={this.handleButtonAdd}
             className="button-add"
             icon={
               <PlusCircleTwoTone
@@ -110,11 +126,10 @@ class Container extends Component {
         <Table
           columns={this.columns}
           dataSource={students}
-          // scroll={{ x: 1000 }}
           pagination={false}
           bordered
         />
-        <GeneralModal/>
+        <GeneralModal isVisible={isAdd} reloadData={this.reloadData} />
       </div>
     );
   }
