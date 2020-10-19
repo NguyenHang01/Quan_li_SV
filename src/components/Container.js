@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Table } from "antd";
-import { listSinhVien } from "../service/handleRequest";
+import { listStudents } from "../service/handleRequest";
 import "../assets/css/base.css";
 import "../assets/css/container.css";
 import {
@@ -8,19 +8,19 @@ import {
   EditOutlined,
   PlusCircleTwoTone,
 } from "@ant-design/icons";
-import GeneralModal from "./GeneralModal";
+import AddModal from "./AddModal";
 class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
       students: [],
-      isAdd: false,
+      isVisibleModalAdd: false,
     };
   }
 
-  async getListSV() {
+  async getListStudents() {
     let students = [];
-    await listSinhVien()
+    await listStudents()
       .then((res) => {
         students = res.data.map((student) => {
           return {
@@ -40,7 +40,7 @@ class Container extends Component {
   }
 
   async componentDidMount() {
-    const students = await this.getListSV();
+    const students = await this.getListStudents();
     this.setState({
       students,
     });
@@ -48,17 +48,23 @@ class Container extends Component {
 
   handleButtonAdd = () => {
     this.setState({
-      isAdd: true,
+      isVisibleModalAdd: true,
     });
   };
 
-  reloadData = async () => {
-    const students = await this.getListSV();
+  addOk= async () => {
+    const students = await this.getListStudents();
     await this.setState({
       students,
-      isAdd: false,
+      isVisibleModalAdd: false,
     });
   };
+
+  addCancel=async()=>{
+    await this.setState({
+      isVisibleModalAdd: false
+    })
+  }
 
   columns = [
     {
@@ -105,14 +111,14 @@ class Container extends Component {
   ];
 
   render() {
-    const { students, isAdd } = this.state;
+    const { students, isVisibleModalAdd } = this.state;
     return (
       <div>
         <div className="header-list">
           <h1 className="title-list">Danh sách sinh viên</h1>
           <Button
             onClick={this.handleButtonAdd}
-            className="button-add"
+            className="btn-add btn-primary"
             icon={
               <PlusCircleTwoTone
                 className="button-add-icon"
@@ -129,7 +135,7 @@ class Container extends Component {
           pagination={false}
           bordered
         />
-        <GeneralModal isVisible={isAdd} reloadData={this.reloadData} />
+        <AddModal isVisible={isVisibleModalAdd} addOk={this.addOk}  addCancel={this.addCancel}/>
       </div>
     );
   }

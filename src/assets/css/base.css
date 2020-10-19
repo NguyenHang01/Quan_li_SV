@@ -7,3 +7,24 @@
     --border-color: #b9b8b8;
     --footer-color: rgb(60, 60, 60)
 }
+
+.btn-primary{
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    background-color:  var(--primary-color);
+    box-shadow: 1px 1px  rgb(148, 143, 143);
+    font-size: 15px;
+    color: var(--while-color);
+}
+
+.btn-primary:hover{
+    background-color: var(--primary-hover-color);
+    cursor: pointer;
+    color: var(--while-color);
+}
+
+.btn-primary:focus{
+    background-color: var(--primary-hover-color);
+    cursor: pointer;
+    color: var(--while-color);
+}

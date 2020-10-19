@@ -1,34 +1,17 @@
 /* style for header table */
-.button-add{
+.btn-add{
     width: 122px;
     height: 44px;
-    border-radius: 3px;
-    border: 1px solid var(--border-color);
-    background-color:  var(--primary-color);
-    box-shadow: 1px 1px  rgb(148, 143, 143);
-    font-size: 15px;
+
     display: flex;
     align-items: center;
-    color: var(--while-color);
     font-weight: 500;
-    outline: none;
 }
 
 .button-add-icon{
     font-size: 20px;
 }
 
-.button-add:hover{
-    background-color: var(--primary-hover-color);
-    cursor: pointer;
-    color: var(--while-color);
-}
-
-.button-add:focus{
-    background-color: var(--primary-hover-color);
-    cursor: pointer;
-    color: var(--while-color);
-}
 
 .title-list{
     font-weight: 500;
