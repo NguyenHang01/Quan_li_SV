@@ -28,3 +28,11 @@
     cursor: pointer;
     color: var(--while-color);
 }
+
+.btn{
+    border: 1px solid var(--border-color);
+    box-shadow: 1px 1px  rgb(148, 143, 143);
+    margin-left: 30px;
+    margin-right: 30px;
+
+}

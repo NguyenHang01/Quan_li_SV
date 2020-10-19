@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, Table, Popconfirm, notification } from "antd";
 import { listStudents, deleteStudent } from "../service/handleRequest";
+import { convertUnixDate} from "../service/convertDate";
+
 import "../assets/css/base.css";
 import "../assets/css/container.css";
 import {
@@ -23,7 +25,7 @@ class Container extends Component {
       message: message,
     });
   };
-
+  
   async getListStudents() {
     let students = [];
     await listStudents()
@@ -35,7 +37,7 @@ class Container extends Component {
             gioi_tinh: student.gioi_tinh ? "nam" : "nữ",
             lop: student.lop + "-K" + student.khoa_so,
             que_quan: student.que_quan,
-            ngay_sinh: student.ngay_sinh,
+            ngay_sinh: convertUnixDate(student.ngay_sinh) ,
           };
         });
       })
@@ -76,7 +78,7 @@ class Container extends Component {
     const {students} = this.state;
     deleteStudent(id)
       .then((res) => {
-        this.openNotificationWithIcon("success", "Delete success!");
+        this.openNotificationWithIcon("success", "Xóa thành công!");
         const newStudents = students.filter((item) => item.msv !== id);
         this.setState({
             students: newStudents,

@@ -3,8 +3,18 @@ import {
   listFacultys,
   listCourses,
   listClasses,
+  addStudent,
 } from "../service/handleRequest";
-import { Modal, Form, Input, Button, DatePicker, Radio, Select } from "antd";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  Radio,
+  Select,
+  notification,
+} from "antd";
 import "../assets/css/base.css";
 import "../assets/css/addModal.css";
 
@@ -19,6 +29,13 @@ class AddModal extends Component {
       student: {},
     };
   }
+
+  openNotificationWithIcon = (type, message) => {
+    notification[type]({
+      message: message,
+    });
+  };
+
   getListFacultys = () => {
     listFacultys()
       .then((res) => {
@@ -31,7 +48,6 @@ class AddModal extends Component {
         this.setState({
           facultys,
         });
-        console.log(this.state.facultys);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +65,6 @@ class AddModal extends Component {
         this.setState({
           courses,
         });
-        console.log(this.state.classes);
       })
       .catch((err) => {
         console.log(err);
@@ -87,12 +102,16 @@ class AddModal extends Component {
   };
 
   handleCancel = (e) => {
+    console.log(e);
     this.props.addCancel();
   };
 
-  handleAdd = async (e) => {
-    const values = await this.form.setFieldTouched();
-    console.log("Success:", values);
+  handleAdd = (values) => {
+    values.ngay_sinh = Date.parse(values.ngay_sinh) / 1000;
+    addStudent(values).then((res) => {
+      this.openNotificationWithIcon("success", "Thêm thành công!");
+      this.props.addOk();
+    });
   };
 
   render() {
@@ -104,29 +123,15 @@ class AddModal extends Component {
           visible={this.props.isVisible}
           width={800}
           okButtonProps={{ style: { display: "none" } }}
-          // onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          
+          cancelButtonProps={{ style: { display: "none" } }}
+          // onCancel={this.handleCancel}
         >
           <Form
-            form={this.form}
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
             name="basic"
-            // initialValues={{ remember: true }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
+            onFinish={this.handleAdd}
           >
-            <Form.Item
-              label="Mã sinh viên"
-              name="msv"
-              rules={[
-                { required: true, message: "Bạn chưa nhập mã sinh viên!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
             <Form.Item
               label="Họ và tên đệm"
               name="ho"
@@ -145,18 +150,18 @@ class AddModal extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item label="Quê quán" name="que">
+            <Form.Item label="Quê quán" name="que_quan">
               <Input />
             </Form.Item>
 
-            <Form.Item label="Ngày sinh">
+            <Form.Item name="ngay_sinh" label="Ngày sinh">
               <DatePicker />
             </Form.Item>
 
-            <Form.Item name="radio-group" label="Giới tính">
+            <Form.Item name="gioi_tinh" label="Giới tính">
               <Radio.Group>
-                <Radio value="a">Nữ</Radio>
-                <Radio value="b">Nam</Radio>
+                <Radio value={false}>Nữ</Radio>
+                <Radio value={true}>Nam</Radio>
               </Radio.Group>
             </Form.Item>
 
@@ -175,7 +180,7 @@ class AddModal extends Component {
             </Form.Item>
 
             <Form.Item
-              name="khoa"
+              // name="khoa"
               label="Khoa"
               rules={[{ required: true, message: "Bạn chưa chọn khoa!" }]}
             >
@@ -196,7 +201,7 @@ class AddModal extends Component {
               label="lớp"
               rules={[{ required: true, message: "Bạn chưa chọn lớp!" }]}
             >
-              <Select placeholder="Chọn khóa học">
+              <Select placeholder="Chọn lớp">
                 {classes.map((Class, index) => (
                   <Option key={index} value={Class.id}>
                     {Class.id}
@@ -205,15 +210,17 @@ class AddModal extends Component {
               </Select>
             </Form.Item>
 
-            <Form.Item>
-              <Button
-                className="btn-primary"
-                htmlType="submit"
-                onClick={this.handleAdd}
-              >
-                Thêm
-              </Button>
-            </Form.Item>
+            <div style={{display:"flex", marginTop: "40px", marginLeft: "50px"}}>
+              <Form.Item>
+                <Button size="middle" className="btn-primary" htmlType="submit">
+                  Thêm
+                </Button>
+              </Form.Item>
+
+              <Form.Item>
+                <Button size="middle" className="btn" onClick={this.handleCancel}>Thoát</Button>
+              </Form.Item>
+            </div>
           </Form>
         </Modal>
       </div>

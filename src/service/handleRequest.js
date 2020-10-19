@@ -7,10 +7,17 @@ export const listStudents = () =>
     url: apiUrl + "sinh_vien",
   });
 
+export const addStudent = (data) =>
+  axios({
+    method: "post",
+    url: apiUrl + "sinh_vien",
+    data: data,
+  });
+
 export const deleteStudent = (id) =>
   axios({
     method: "delete",
-    url: apiUrl + "sinh_vien/"+id,
+    url: apiUrl + "sinh_vien/" + id,
   });
 
 export const listCourses = () =>
