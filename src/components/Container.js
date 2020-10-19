@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button, Table } from "antd";
-import { listStudents } from "../service/handleRequest";
+import { Button, Table, Popconfirm, notification } from "antd";
+import { listStudents, deleteStudent } from "../service/handleRequest";
 import "../assets/css/base.css";
 import "../assets/css/container.css";
 import {
@@ -17,6 +17,12 @@ class Container extends Component {
       isVisibleModalAdd: false,
     };
   }
+
+  openNotificationWithIcon = (type, message) => {
+    notification[type]({
+      message: message,
+    });
+  };
 
   async getListStudents() {
     let students = [];
@@ -52,7 +58,7 @@ class Container extends Component {
     });
   };
 
-  addOk= async () => {
+  addOk = async () => {
     const students = await this.getListStudents();
     await this.setState({
       students,
@@ -60,11 +66,26 @@ class Container extends Component {
     });
   };
 
-  addCancel=async()=>{
+  addCancel = async () => {
     await this.setState({
-      isVisibleModalAdd: false
-    })
-  }
+      isVisibleModalAdd: false,
+    });
+  };
+
+  handleButtonDelete = async (id) => {
+    const {students} = this.state;
+    deleteStudent(id)
+      .then((res) => {
+        this.openNotificationWithIcon("success", "Delete success!");
+        const newStudents = students.filter((item) => item.msv !== id);
+        this.setState({
+            students: newStudents,
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   columns = [
     {
@@ -101,9 +122,17 @@ class Container extends Component {
       title: "",
       key: "action",
       className: "column-list",
-      render: () => (
+      render: (text, record) => (
         <div>
-          <DeleteOutlined className="icon-action icon-delete" />
+          <Popconfirm
+            title="Are you sure delete this task?"
+            onConfirm={() => this.handleButtonDelete(record.msv)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined className="icon-action icon-delete" />
+          </Popconfirm>
+
           <EditOutlined className="icon-action icon-edit" />
         </div>
       ),
@@ -135,7 +164,11 @@ class Container extends Component {
           pagination={false}
           bordered
         />
-        <AddModal isVisible={isVisibleModalAdd} addOk={this.addOk}  addCancel={this.addCancel}/>
+        <AddModal
+          isVisible={isVisibleModalAdd}
+          addOk={this.addOk}
+          addCancel={this.addCancel}
+        />
       </div>
     );
   }

@@ -7,6 +7,12 @@ export const listStudents = () =>
     url: apiUrl + "sinh_vien",
   });
 
+export const deleteStudent = (id) =>
+  axios({
+    method: "delete",
+    url: apiUrl + "sinh_vien/"+id,
+  });
+
 export const listCourses = () =>
   axios({
     method: "get",
@@ -19,7 +25,7 @@ export const listFacultys = () =>
     url: apiUrl + "khoa",
   });
 
-export const listClasses= (khoa) =>
+export const listClasses = (khoa) =>
   axios({
     method: "get",
     url: apiUrl + "khoa/" + khoa + "/lop",
