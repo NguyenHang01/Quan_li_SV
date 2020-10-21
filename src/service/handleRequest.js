@@ -1,10 +1,25 @@
 import { apiUrl } from "../environments/environments";
 import axios from "axios";
 
+
+// Student
 export const listStudents = () =>
   axios({
     method: "get",
     url: apiUrl + "sinh_vien",
+  });
+
+export const getStudent = (id) =>
+  axios({
+    method: "get",
+    url: apiUrl + "sinh_vien/" + id,
+  });
+
+export const editStudent = (id, data) =>
+  axios({
+    method: "put",
+    url: apiUrl + "sinh_vien/" + id,
+    data: data,
   });
 
 export const addStudent = (data) =>
@@ -20,18 +35,24 @@ export const deleteStudent = (id) =>
     url: apiUrl + "sinh_vien/" + id,
   });
 
+
+// Course
 export const listCourses = () =>
   axios({
     method: "get",
     url: apiUrl + "khoa_so",
   });
 
+
+// Facultys
 export const listFacultys = () =>
   axios({
     method: "get",
     url: apiUrl + "khoa",
   });
 
+
+// Class
 export const listClasses = (khoa) =>
   axios({
     method: "get",

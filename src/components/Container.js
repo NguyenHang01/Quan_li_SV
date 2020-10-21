@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Button, Table, Popconfirm, notification } from "antd";
-import { listStudents, deleteStudent } from "../service/handleRequest";
-import { convertUnixDate} from "../service/convertDate";
+import {
+  listStudents,
+  deleteStudent,
+  getStudent,
+} from "../service/handleRequest";
+import { convertUnixDate } from "../service/convertDate";
 
 import "../assets/css/base.css";
 import "../assets/css/container.css";
@@ -11,12 +15,16 @@ import {
   PlusCircleTwoTone,
 } from "@ant-design/icons";
 import AddModal from "./AddModal";
+import EditModal from "./EditModal";
 class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
       students: [],
+      isVisibleModalEdit: false,
       isVisibleModalAdd: false,
+      studentEdit: {},
+      // idEdit: null,
     };
   }
 
@@ -25,7 +33,7 @@ class Container extends Component {
       message: message,
     });
   };
-  
+
   async getListStudents() {
     let students = [];
     await listStudents()
@@ -37,7 +45,7 @@ class Container extends Component {
             gioi_tinh: student.gioi_tinh ? "nam" : "nữ",
             lop: student.lop + "-K" + student.khoa_so,
             que_quan: student.que_quan,
-            ngay_sinh: convertUnixDate(student.ngay_sinh) ,
+            ngay_sinh: convertUnixDate(student.ngay_sinh),
           };
         });
       })
@@ -65,28 +73,50 @@ class Container extends Component {
     await this.setState({
       students,
       isVisibleModalAdd: false,
+      isVisibleModalEdit: false,
     });
   };
 
   addCancel = async () => {
     await this.setState({
       isVisibleModalAdd: false,
+      isVisibleModalEdit: false,
     });
   };
 
   handleButtonDelete = async (id) => {
-    const {students} = this.state;
+    const { students } = this.state;
     deleteStudent(id)
       .then((res) => {
         this.openNotificationWithIcon("success", "Xóa thành công!");
         const newStudents = students.filter((item) => item.msv !== id);
         this.setState({
-            students: newStudents,
-          });
+          students: newStudents,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  getDetailStudent = async(id) => {
+    await getStudent(id)
+      .then((res) => {
+        const student = res.data;
+        this.setState({
+          studentEdit: student,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  setId = async(id) => {
+    await this.getDetailStudent(id);
+    this.setState({
+      isVisibleModalEdit: true,
+    });
   };
 
   columns = [
@@ -135,14 +165,22 @@ class Container extends Component {
             <DeleteOutlined className="icon-action icon-delete" />
           </Popconfirm>
 
-          <EditOutlined className="icon-action icon-edit" />
+          <EditOutlined
+            onClick={() => this.setId(record.msv)}
+            className="icon-action icon-edit"
+          />
         </div>
       ),
     },
   ];
 
   render() {
-    const { students, isVisibleModalAdd } = this.state;
+    const {
+      students,
+      isVisibleModalAdd,
+      isVisibleModalEdit,
+      studentEdit,
+    } = this.state;
     return (
       <div>
         <div className="header-list">
@@ -171,6 +209,21 @@ class Container extends Component {
           addOk={this.addOk}
           addCancel={this.addCancel}
         />
+        {isVisibleModalEdit ? (
+          <EditModal
+            student={studentEdit}
+            isVisible={isVisibleModalEdit}
+            addOk={this.addOk}
+            addCancel={this.addCancel}
+          />
+        ) : null}
+        {/* <EditModal
+          student={student}
+          // id={idStudentEdit}
+          isVisible={isVisibleModalEdit}
+          addOk={this.addOk}
+          addCancel={this.addCancel}
+        /> */}
       </div>
     );
   }
