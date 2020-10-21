@@ -99,7 +99,7 @@ class Container extends Component {
       });
   };
 
-  getDetailStudent = async(id) => {
+  getDetailStudent = async (id) => {
     await getStudent(id)
       .then((res) => {
         const student = res.data;
@@ -112,7 +112,7 @@ class Container extends Component {
       });
   };
 
-  setId = async(id) => {
+  setId = async (id) => {
     await this.getDetailStudent(id);
     this.setState({
       isVisibleModalEdit: true,
@@ -204,11 +204,13 @@ class Container extends Component {
           pagination={false}
           bordered
         />
-        <AddModal
-          isVisible={isVisibleModalAdd}
-          addOk={this.addOk}
-          addCancel={this.addCancel}
-        />
+        {isVisibleModalAdd ? (
+          <AddModal
+            isVisible={isVisibleModalAdd}
+            addOk={this.addOk}
+            addCancel={this.addCancel}
+          />
+        ) : null}
         {isVisibleModalEdit ? (
           <EditModal
             student={studentEdit}
@@ -217,13 +219,6 @@ class Container extends Component {
             addCancel={this.addCancel}
           />
         ) : null}
-        {/* <EditModal
-          student={student}
-          // id={idStudentEdit}
-          isVisible={isVisibleModalEdit}
-          addOk={this.addOk}
-          addCancel={this.addCancel}
-        /> */}
       </div>
     );
   }

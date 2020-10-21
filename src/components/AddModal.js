@@ -180,7 +180,7 @@ class AddModal extends Component {
             </Form.Item>
 
             <Form.Item
-              // name="khoa"
+              name="khoa"
               label="Khoa"
               rules={[{ required: true, message: "Bạn chưa chọn khoa!" }]}
             >

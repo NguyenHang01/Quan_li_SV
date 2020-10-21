@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from 'moment';
 import {
   listFacultys,
   listCourses,
@@ -17,10 +18,11 @@ import {
   notification,
 } from "antd";
 import "../assets/css/base.css";
-import "../assets/css/addModal.css";
-import { convertUnixDate } from "../service/convertDate";
+import "../assets/css/addModal.css";  
+import { convertUnixDate, convertDatePicker } from "../service/convertDate";
 
 const { Option } = Select;
+const dateFormat = 'YYYY-MM-DD';
 class EditModal extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,6 @@ class EditModal extends Component {
       student: this.props.student,
     };
   }
-
   openNotificationWithIcon = (type, message) => {
     notification[type]({
       message: message,
@@ -90,14 +91,14 @@ class EditModal extends Component {
       });
   };
 
-  getDetailStudent = (id) => {
-    getStudent(id).then((res) => {
-      const student = res.data;
-      this.setState({
-        student,
-      });
-    });
-  };
+  // getDetailStudent = (id) => {
+  //   getStudent(id).then((res) => {
+  //     const student = res.data;
+  //     this.setState({
+  //       student,
+  //     });
+  //   });
+  // };
 
   componentDidMount() {
     this.getListFacultys();
@@ -118,11 +119,11 @@ class EditModal extends Component {
   };
 
   handleEdit = (values) => {
-    // values.ngay_sinh = Date.parse(values.ngay_sinh) / 1000;
-    // editStudent(this.props.id, values).then((res) => {
-    //   this.openNotificationWithIcon("success", "Sửa thành công!");
-    //   this.props.addOk();
-    // });
+    values.ngay_sinh = Date.parse(values.ngay_sinh) / 1000;
+    editStudent(this.state.student.id, values).then((res) => {
+      this.openNotificationWithIcon("success", "Sửa thành công!");
+      this.props.addOk();
+    });
     console.log(values);
   };
 
@@ -143,7 +144,7 @@ class EditModal extends Component {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
             name="basic"
-            onFinish={this.handleAdd}
+            onFinish={this.handleEdit}
           >
             <Form.Item
               label="Họ và tên đệm"
@@ -173,7 +174,7 @@ class EditModal extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item name="ngay_sinh" label="Ngày sinh">
+            <Form.Item initialValue={moment(convertDatePicker(student.ngay_sinh),dateFormat)} name="ngay_sinh" label="Ngày sinh">
               <DatePicker />
             </Form.Item>
 
@@ -202,7 +203,7 @@ class EditModal extends Component {
             <Form.Item
               name="khoa"
               label="Khoa"
-              initialValue={student.lop.slice(0, -1)}
+              initialValue={student.khoa}
               rules={[{ required: true, message: "Bạn chưa chọn khoa!" }]}
             >
               <Select
