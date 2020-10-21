@@ -24,7 +24,6 @@ class Container extends Component {
       isVisibleModalEdit: false,
       isVisibleModalAdd: false,
       studentEdit: {},
-      // idEdit: null,
     };
   }
 
@@ -202,6 +201,7 @@ class Container extends Component {
           columns={this.columns}
           dataSource={students}
           pagination={false}
+          scroll={{ x: 1000 }}
           bordered
         />
         {isVisibleModalAdd ? (

@@ -91,18 +91,10 @@ class EditModal extends Component {
       });
   };
 
-  // getDetailStudent = (id) => {
-  //   getStudent(id).then((res) => {
-  //     const student = res.data;
-  //     this.setState({
-  //       student,
-  //     });
-  //   });
-  // };
-
   componentDidMount() {
     this.getListFacultys();
     this.getListCourses();
+    this.getListClasses(this.state.student.khoa)
   }
 
   handleChangeFaculty = (idKhoa) => {
@@ -114,7 +106,6 @@ class EditModal extends Component {
   };
 
   handleCancel = (e) => {
-    console.log(e);
     this.props.addCancel();
   };
 
@@ -124,12 +115,10 @@ class EditModal extends Component {
       this.openNotificationWithIcon("success", "Sửa thành công!");
       this.props.addOk();
     });
-    console.log(values);
   };
 
   render() {
     const { courses, facultys, classes, student } = this.state;
-    console.log(student.lop.slice(0, -1));
     return (
       <div>
         <Modal

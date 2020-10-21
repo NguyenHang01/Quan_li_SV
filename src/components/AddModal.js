@@ -17,6 +17,7 @@ import {
 } from "antd";
 import "../assets/css/base.css";
 import "../assets/css/addModal.css";
+import LocaleProvider from "antd/lib/locale-provider";
 
 const { Option } = Select;
 class AddModal extends Component {
@@ -26,7 +27,6 @@ class AddModal extends Component {
       facultys: [],
       courses: [],
       classes: [],
-      student: {},
     };
   }
 
@@ -72,7 +72,7 @@ class AddModal extends Component {
   };
 
   getListClasses = (idKhoa) => {
-    listClasses(idKhoa)
+     listClasses(idKhoa)
       .then((res) => {
         const classes = res.data.map((Class) => {
           return {
@@ -94,7 +94,7 @@ class AddModal extends Component {
   }
 
   handleChangeFaculty = (idKhoa) => {
-    this.getListClasses(idKhoa);
+     this.getListClasses(idKhoa);
   };
 
   handleOk = (e) => {
@@ -102,7 +102,6 @@ class AddModal extends Component {
   };
 
   handleCancel = (e) => {
-    console.log(e);
     this.props.addCancel();
   };
 
@@ -115,7 +114,7 @@ class AddModal extends Component {
   };
 
   render() {
-    const { courses, facultys, classes, student } = this.state;
+    const { courses, facultys, classes } = this.state;
     return (
       <div>
         <Modal
@@ -124,7 +123,7 @@ class AddModal extends Component {
           width={800}
           okButtonProps={{ style: { display: "none" } }}
           cancelButtonProps={{ style: { display: "none" } }}
-          // onCancel={this.handleCancel}
+          onCancel={this.handleCancel}
         >
           <Form
             labelCol={{ span: 4 }}
@@ -198,7 +197,7 @@ class AddModal extends Component {
 
             <Form.Item
               name="lop"
-              label="lớp"
+              label="Lớp"
               rules={[{ required: true, message: "Bạn chưa chọn lớp!" }]}
             >
               <Select placeholder="Chọn lớp">
