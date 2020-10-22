@@ -6,7 +6,7 @@ import {
   getStudent,
 } from "../service/handleRequest";
 import { convertUnixDate } from "../service/convertDate";
-import {Route, Switch} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import "../assets/css/base.css";
 import "../assets/css/homeScreen.css";
 import {
@@ -123,6 +123,12 @@ class HomeScreen extends Component {
       title: "MSV",
       dataIndex: "msv",
       className: "column-list",
+      render: (text, record) => (
+        <div>
+          <Link to={`/detail/${record.msv}`}>{text}</Link>
+         
+        </div>
+      ),
     },
     {
       title: "Họ và tên",

@@ -7,7 +7,7 @@ export const Container = () => (
   <BrowserRouter>
     <Switch>
     <Route path="/home" component={HomeScreen} />
-    <Route path="/detail" component={DetailScreen} />
+    <Route path="/detail/:id" component={DetailScreen} />
     </Switch>
   </BrowserRouter>
 );
