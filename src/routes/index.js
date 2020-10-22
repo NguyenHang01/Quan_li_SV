@@ -6,7 +6,7 @@ import DetailScreen from "./DetailScreen";
 export const Container = () => (
   <BrowserRouter>
     <Switch>
-    <Route path="/home" component={HomeScreen} />
+    <Route exact path="/" component={HomeScreen} />
     <Route path="/detail/:id" component={DetailScreen} />
     </Switch>
   </BrowserRouter>

@@ -51,6 +51,12 @@ export const listFacultys = () =>
     url: apiUrl + "khoa",
   });
 
+export const getFaculty = (id) =>
+  axios({
+    method: "get",
+    url: apiUrl + "khoa/"+ id,
+  });
+
 
 // Class
 export const listClasses = (khoa) =>

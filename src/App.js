@@ -29,7 +29,7 @@ function App() {
       </Content>
 
       <Footer className="footer">
-        Trường đại học Giao thông Vận Tải ©2018
+        <span className="footer-text">Trường đại học Giao thông Vận Tải ©2018</span>
       </Footer>
     </Layout>
   );

@@ -5,7 +5,8 @@
     --black-color:  #000;
     --text-color: #333;
     --border-color: #b9b8b8;
-    --footer-color: rgb(60, 60, 60)
+    --footer-color: rgb(60, 60, 60);
+    --text-footer-color: rgb(216, 216, 216);
 }
 
 .btn-primary{

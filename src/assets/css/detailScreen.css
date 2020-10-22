@@ -1,0 +1,54 @@
+.detail-content{
+    padding: 10px 30px;
+}
+
+/* avatar layout */
+.avatar{
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar-img img{
+    width: 170px;
+    object-fit: contain;
+    margin-left: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    box-shadow: 1px 1px  rgb(80, 154, 240);
+}
+
+.avatar-contact{
+    margin-top: 34px;
+}
+
+.contact-group{
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.contact-group-title{
+    font-weight: 500;
+}
+
+.contact-group-infor{
+    font-weight: 400;
+    color: rgb(48, 123, 235);
+}
+
+/* profile layout */
+.profile{
+    font-size: 15px;
+}
+
+.btn-edit{
+    margin-top: 10px;
+    width: 122px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.button-edit-icon{
+    font-size: 22px;
+}
