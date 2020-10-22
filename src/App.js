@@ -1,11 +1,18 @@
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import React from "react";
 import { Layout } from "antd";
 import logo from "./assets/img/logo_gtvt.png";
-import "./assets/css/base.css"
-import "./assets/css/home.css";
-import Container from "./components/Container";
-
+import "./assets/css/base.css";
+import "./assets/css/app.css";
+import Container from "./routes";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -17,7 +24,7 @@ function App() {
 
       <Content style={{ padding: "0 50px" }}>
         <div className="site-layout-content">
-          <Container></Container>
+          <Container/>
         </div>
       </Content>
 

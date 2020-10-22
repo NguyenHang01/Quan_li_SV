@@ -6,17 +6,17 @@ import {
   getStudent,
 } from "../service/handleRequest";
 import { convertUnixDate } from "../service/convertDate";
-
+import {Route, Switch} from "react-router-dom";
 import "../assets/css/base.css";
-import "../assets/css/container.css";
+import "../assets/css/homeScreen.css";
 import {
   DeleteOutlined,
   EditOutlined,
   PlusCircleTwoTone,
 } from "@ant-design/icons";
-import AddModal from "./AddModal";
-import EditModal from "./EditModal";
-class Container extends Component {
+import AddModal from "../components/AddModal";
+import EditModal from "../components/EditModal";
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,6 +138,7 @@ class Container extends Component {
       title: "Lớp",
       dataIndex: "lop",
       className: "column-list",
+      visible: false
     },
     {
       title: "Ngày sinh",
@@ -223,4 +224,4 @@ class Container extends Component {
     );
   }
 }
-export default Container;
+export default HomeScreen;
