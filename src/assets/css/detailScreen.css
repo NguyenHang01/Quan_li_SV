@@ -1,5 +1,5 @@
 .detail-content{
-    padding: 10px 30px;
+    padding: 10px 40px;
 }
 
 /* avatar layout */
@@ -42,7 +42,7 @@
 
 .btn-edit{
     margin-top: 10px;
-    width: 122px;
+    width: 126px;
     height: 44px;
     display: flex;
     align-items: center;

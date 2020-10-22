@@ -4,6 +4,7 @@ import { Button, Col, Row } from "antd";
 import { UserOutlined, EditTwoTone } from "@ant-design/icons";
 import "../assets/css/detailScreen.css";
 import { convertUnixDate } from "../service/convertDate";
+import EditModal from "../components/EditModal";
 
 class DetailScreen extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class DetailScreen extends Component {
     this.state = {
       student: {},
       faculty: {},
+      isVisibleModalEdit: false,
     };
   }
 
@@ -44,13 +46,34 @@ class DetailScreen extends Component {
     await this.getDetailStudent(this.props.match.params.id);
     this.getDetailFaculty(this.state.student.khoa);
   }
+
+  handleButtonEdit=()=>{
+    this.setState({
+      isVisibleModalEdit: true,
+    });
+  }
+
+  addOk = async () => {
+    await this.getDetailStudent(this.props.match.params.id);
+    this.getDetailFaculty(this.state.student.khoa);
+    await this.setState({
+      isVisibleModalEdit: false,
+    });
+  };
+
+  addCancel = async () => {
+    await this.setState({
+      isVisibleModalEdit: false,
+    });
+  };
+
   render() {
-    const { student, faculty } = this.state;
+    const { student, faculty, isVisibleModalEdit } = this.state;
     console.log(student);
     return (
       <div className="detail-content">
         <Row>
-          <Col span={10}>
+          <Col span={11}>
             <div className="avatar">
               <div className="avatar-img">
                 <img src="https://kenh14cdn.com/2019/8/10/photo-1-1565418850012849840930.jpeg" />
@@ -75,78 +98,78 @@ class DetailScreen extends Component {
               </div>
             </div>
           </Col>
-          <Col span={14}>
+          <Col span={13}>
             <div className="profile">
               <Row>
                 <div className="profile-content" style={{ width: "100%" }}>
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Mã sinh viên: </h3>
                     </Col>
-                    <Col span={10}>000{student.id}</Col>
+                    <Col span={12}>000{student.id}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Họ và tên đệm: </h3>
                     </Col>
-                    <Col span={10}>{student.ho}</Col>
+                    <Col span={12}>{student.ho}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Tên: </h3>
                     </Col>
-                    <Col span={10}>{student.ten}</Col>
+                    <Col span={12}>{student.ten}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Giới tính: </h3>
                     </Col>
-                    <Col span={10}>{student.gioi_tinh ? "Nam" : "Nữ"}</Col>
+                    <Col span={12}>{student.gioi_tinh ? "Nam" : "Nữ"}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Ngày sinh: </h3>
                     </Col>
-                    <Col span={10}>{convertUnixDate(student.ngay_sinh)}</Col>
+                    <Col span={12}>{convertUnixDate(student.ngay_sinh)}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Quê quán: </h3>
                     </Col>
-                    <Col span={10}>{student.que_quan}</Col>
+                    <Col span={12}>{student.que_quan}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Khóa: </h3>
                     </Col>
-                    <Col span={10}>K{student.khoa_so}</Col>
+                    <Col span={12}>K{student.khoa_so}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Khoa: </h3>
                     </Col>
-                    <Col span={10}>{faculty.ten_khoa}</Col>
+                    <Col span={12}>{faculty.ten_khoa}</Col>
                   </Row>
 
                   <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                       <h3>Lớp: </h3>
                     </Col>
-                    <Col span={10}>{student.lop}</Col>
+                    <Col span={12}>{student.lop}</Col>
                   </Row>
                 </div>
               </Row>
               <Row>
                 <div className="profile-action">
                   <Button
-                    // onClick={this.handleButtonAdd}
+                    onClick={this.handleButtonEdit}
                     className="btn-edit btn-primary"
                     icon={
                       <EditTwoTone
@@ -162,6 +185,14 @@ class DetailScreen extends Component {
             </div>
           </Col>
         </Row>
+        {isVisibleModalEdit ? (
+          <EditModal
+            student={student}
+            isVisible={isVisibleModalEdit}
+            addOk={this.addOk}
+            addCancel={this.addCancel}
+          />
+        ) : null}     
       </div>
     );
   }
